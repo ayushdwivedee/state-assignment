@@ -13,6 +13,26 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     // Your  code will go here
-    
+    let root=document.getElementById("root");
+
+    function App(){
+      let [color,setColor]=React.useState("")
+      function findColor(){
+        let colorFound=document.getElementById("color")
+        setColor( 
+          color="#"+colorFound.value
+        )
+
+      }
+      return <>
+      <input type="text" id="color" onChange={findColor} placeholder="Enter Your HEX Color code"/>
+      <br/><br/>
+      {color.length<=3 ? "Invalid Color Code" :<p>Color Code is : {color}</p>}
+      <br/><br/>
+      <div style={{backgroundColor:`${color}`,width:"100px",height:"100px",border:"1px solid red"}}></div>
+      </>
+    }
+
+    ReactDOM.createRoot(root).render(<App/>)
   </script>
 </html>
