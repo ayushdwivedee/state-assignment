@@ -13,15 +13,51 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     // Your  code will go here
-    let root=document.getElementById("root");
-    function App(){
-        return<>
-        <form >
-            <input type="text" placeholder="Your 1st Hobby"/>
-            <input type="submit"/>    
-        </form>
+    let root = document.getElementById("root");
+    function App() {
+      let [hobby, setHobby] = React.useState([""]);
+      // let forms=document.getElementById("form");
+
+      function addHobbyField() {
+        setHobby([...hobby, ""]);
+      }
+      function handleInputChange(index, value) {
+        let newHobby = [...hobby];
+        newHobby[index] = value;
+        setHobby(newHobby);
+      }
+
+      function removeHooby(index) {
+        if (index === 0) return;
+        let hobbies = [...hobby];
+        hobbies.splice(index, 1);
+        setHobby(hobbies);
+      }
+
+      function handleSubmit(e) {
+        e.preventDefault();
+        console.log(hobby);
+      }
+      return (
+        <>
+          <form onSubmit={handleSubmit}>
+            {hobby.map((hobby, index) => (
+              <div key={index}>
+                <input
+                  type="text"
+                  value={hobby}
+                  onChange={(e) => handleInputChange(index, e.target.value)}
+                  placeholder="Enter Your Hobby"
+                />
+                <button onClick={() => removeHooby(index)}>Remove Hobby</button>
+              </div>
+            ))}
+            <button onClick={addHobbyField}>Add Hobby</button>
+            <button type="submit">Submit</button>
+          </form>
         </>
+      );
     }
-    ReactDOM.createRoot(root).render(<App/>)
+    ReactDOM.createRoot(root).render(<App />);
   </script>
 </html>
